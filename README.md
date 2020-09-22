@@ -14,10 +14,18 @@
 - [X] github page에서 cname 설정
 - [X] Github Action 스크립트에서 video_player 패키지의 파일을 교체
 - [X] 소스코드 SEO 작업
-- [ ] naver, google, daum 웹 마스터에 등록
-- [ ] google 애널리틱스 등록
+- [X] naver, google, daum 웹 마스터에 등록
+- [X] google 애널리틱스 등록
 - [X] favicon 만들기
 - [X] footer 만들기
+- [ ] 아이폰 앱바사라지는 현상
+- [ ] 링크 동작안하는 현상
+- [ ] 컨트롤 안보이는 현상
+- [ ] 아이폰 재생 안된 현상
+- [ ] 네이버에서 재생 안되는 현상
+- [ ] hls 지원 브라우저 체크
+- [ ] 재생 안됨 체크
+- [ ] 라이브러리를 직접 include해서 수정 없이 가능하도록
 
 ## 주의
 
