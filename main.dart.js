@@ -48345,8 +48345,8 @@ $S:326}
 A.nS.prototype={
 dE:function(a){var s,r,q,p=this,o=document.createElement("video"),n=p.b
 o.src=n
-o.autoplay=!1
-o.controls=!1
+o.autoplay=!0
+o.controls=!0
 r=o.style
 r.border="none"
 p.d=o
