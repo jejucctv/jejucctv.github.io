@@ -18,20 +18,21 @@
 - [X] google 애널리틱스 등록
 - [X] favicon 만들기
 - [X] footer 만들기
+
+## Bug Fixed
+
 - [ ] 아이폰 앱바사라지는 현상
 - [ ] 링크 동작안하는 현상
-- [ ] 컨트롤 안보이는 현상
+- [X] 컨트롤 안보이는 현상
 - [ ] 아이폰 재생 안된 현상
-- [ ] 네이버에서 재생 안되는 현상
 - [ ] hls 지원 브라우저 체크
 - [ ] 재생 안됨 체크
-- [ ] 라이브러리를 직접 include해서 수정 없이 가능하도록
 
-## 주의
+## 주의(video_player_web_hls 라이브러리를 직접 사용하여 해결)
 
-Player 컨트롤러는 기본 기능을 사용한다. 때문에 브라우저에서 제공하는 기본 컨트롤러를 활성화 해야 한다. 문제는 기본 컨트롤러는 disable 상태로 사용자가 직접 활성화를 해야한다. 
+~~Player 컨트롤러는 기본 기능을 사용한다. 때문에 브라우저에서 제공하는 기본 컨트롤러를 활성화 해야 한다. 문제는 기본 컨트롤러는 disable 상태로 사용자가 직접 활성화를 해야한다.~~
 
-이를 해결하기 위해 [```video_player```](https://pub.dev/packages/video_player_web)의 소스코드에서 초기화 부분에서 컨트롤러를 활성화한다.
+~~이를 해결하기 위해 [```video_player```](https://pub.dev/packages/video_player_web)의 소스코드에서 초기화 부분에서 컨트롤러를 활성화한다.~~
 
 ```
 /// $FLUTTER_HOME\.pub-cache\hosted\pub.dartlang.og\video_player_web-0.1.3+2\lib\video_player_web.dart
@@ -48,6 +49,11 @@ void initialize() {
 ```
 
 ## Changelog
+
+### 0.0.3
+
+- http://jejucctv.site 도메인 등록
+- iOS Player 가능
 
 ### 0.0.2
 
