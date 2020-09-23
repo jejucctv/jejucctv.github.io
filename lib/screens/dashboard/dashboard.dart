@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CctvUrl {
   String name;
@@ -49,6 +50,8 @@ class _DashboardState extends State<Dashboard> {
     initializeVideoPlayer();
   }
 
+  final String version = "0.0.4";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
               Container(
                   child: IconButton(
                 icon: Icon(Icons.more_vert),
-                onPressed: () => _showDialog('버전 0.0.1'),
+                onPressed: () => _showDialog('버전 $version'),
               )),
               SizedBox(width: 10),
             ],
@@ -119,12 +122,15 @@ class _DashboardState extends State<Dashboard> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(height: 10),
-                      SelectableLinkify(
+                      Linkify(
                         text:
                             "Made by https://sh0seo.github.io | Mail: ssh0702@gmail.com",
                         style: TextStyle(
                           fontSize: 12,
                         ),
+                        onOpen: (link) async {
+                          await launch(link.url);
+                        },
                       ),
                       SizedBox(height: 5),
                       Text('Copyright© Jejucctv.site All Rights Reserved',
@@ -134,7 +140,7 @@ class _DashboardState extends State<Dashboard> {
                           )),
                       SizedBox(height: 5),
                       SelectableLinkify(
-                        text: "Build: 1.0.0",
+                        text: "Build: $version",
                         style: TextStyle(
                           fontSize: 9,
                         ),
@@ -163,7 +169,7 @@ class _DashboardState extends State<Dashboard> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('제주도 CCTV'),
-            content: Text('버전 1.0.0'),
+            content: Text('버전 $version'),
             actions: <Widget>[
               FlatButton(
                 child: Text('확인'),
