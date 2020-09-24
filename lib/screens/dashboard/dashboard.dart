@@ -50,7 +50,7 @@ class _DashboardState extends State<Dashboard> {
     initializeVideoPlayer();
   }
 
-  final String version = "0.0.4";
+  final String version = "0.0.5";
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +162,7 @@ class _DashboardState extends State<Dashboard> {
     super.dispose();
   }
 
-  Future<void> _showDialog(String message) async {
+  void _showDialog(String message) async {
     return showDialog<void>(
         context: context,
         barrierDismissible: false,
@@ -174,7 +174,7 @@ class _DashboardState extends State<Dashboard> {
               FlatButton(
                 child: Text('확인'),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
               )
             ],

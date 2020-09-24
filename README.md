@@ -49,6 +49,14 @@ void initialize() {
 
 ## Changelog
 
+### 0.0.5
+
+- sentry 에러 리포팅 추가
+
+### 0.0.4
+
+- email, url link bug fixed
+
 ### 0.0.3
 
 - http://jejucctv.site 도메인 등록
