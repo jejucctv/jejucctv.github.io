@@ -4,6 +4,10 @@ import 'package:video_player/video_player.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:yaml/yaml.dart';
+
 class CctvUrl {
   String name;
   String url;
@@ -43,14 +47,23 @@ class _DashboardState extends State<Dashboard> {
 
   List<VideoPlayerController> players = [];
 
+  var _pubspec;
+
+  String _version;
+
   @override
   void initState() {
     super.initState();
 
     initializeVideoPlayer();
-  }
 
-  final String version = "0.0.5";
+    // read yaml file.
+    loadAsset('../pubspec.yaml').then((d) {
+      _pubspec = loadYaml(d);
+      _version = 'build ${_pubspec['version']}';
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
               Container(
                   child: IconButton(
                 icon: Icon(Icons.more_vert),
-                onPressed: () => _showDialog('버전 $version'),
+                onPressed: () => _showDialog('버전 ${_pubspec['version']}'),
               )),
               SizedBox(width: 10),
             ],
@@ -140,7 +153,7 @@ class _DashboardState extends State<Dashboard> {
                           )),
                       SizedBox(height: 5),
                       SelectableLinkify(
-                        text: "Build: $version",
+                        text: _version,
                         style: TextStyle(
                           fontSize: 9,
                         ),
@@ -169,7 +182,7 @@ class _DashboardState extends State<Dashboard> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('제주도 CCTV'),
-            content: Text('버전 $version'),
+            content: Text(message),
             actions: <Widget>[
               FlatButton(
                 child: Text('확인'),
@@ -244,5 +257,9 @@ class _DashboardState extends State<Dashboard> {
       default:
         return true;
     }
+  }
+
+  Future<String> loadAsset(String path) async {
+    return await rootBundle.loadString(path);
   }
 }
