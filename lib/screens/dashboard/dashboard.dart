@@ -58,11 +58,11 @@ class _DashboardState extends State<Dashboard> {
     initializeVideoPlayer();
 
     // read yaml file.
-    loadAsset('./version.json').then((d) {
-      // _pubspec = loadYaml(d);
-      _version = 'build 1.0.0+1'; //${_pubspec['version']}';
-      setState(() {});
-    });
+    // loadAsset('./version.json').then((d) {
+    // _pubspec = loadYaml(d);
+    _version = 'build 1.0.0+1'; //${_pubspec['version']}';
+    // setState(() {});
+    // });
   }
 
   @override
@@ -259,7 +259,7 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
-  Future<String> loadAsset(String path) async {
-    return await rootBundle.loadString(path);
-  }
+  // Future<String> loadAsset(String path) async {
+  //   return await rootBundle.loadString(path);
+  // }
 }
