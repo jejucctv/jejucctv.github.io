@@ -47,7 +47,7 @@ class _DashboardState extends State<Dashboard> {
 
   List<VideoPlayerController> players = [];
 
-  var _pubspec;
+  // var _pubspec;
 
   String _version;
 
@@ -58,9 +58,9 @@ class _DashboardState extends State<Dashboard> {
     initializeVideoPlayer();
 
     // read yaml file.
-    loadAsset('../pubspec.yaml').then((d) {
-      _pubspec = loadYaml(d);
-      _version = 'build ${_pubspec['version']}';
+    loadAsset('./version.json').then((d) {
+      // _pubspec = loadYaml(d);
+      _version = 'build 1.0.0+1'; //${_pubspec['version']}';
       setState(() {});
     });
   }
@@ -90,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
               Container(
                   child: IconButton(
                 icon: Icon(Icons.more_vert),
-                onPressed: () => _showDialog('버전 ${_pubspec['version']}'),
+                onPressed: () => _showDialog('버전: $_version'),
               )),
               SizedBox(width: 10),
             ],
