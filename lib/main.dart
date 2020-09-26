@@ -13,7 +13,7 @@ final _sentry = SentryClient(
 
 bool get isInDebugMode {
   // 기본적으로 프로덕션 모드라고 가정합니다.
-  bool inDebugMode = true;
+  bool inDebugMode = false;
 
   // Assert 표현식은 개발 단계에서만 사용되며, 프로덕션 모드에서는 무시됩니다.
   // 그러므로 이 코드는 개발 단계에서만 'inDebugMode'를 true로 설정합니다.

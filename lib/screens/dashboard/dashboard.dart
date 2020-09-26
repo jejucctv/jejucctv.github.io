@@ -198,9 +198,9 @@ class _DashboardState extends State<Dashboard> {
           ..initialize().then((_) {
             if (getSupported()) {
               players.elementAt(i).setVolume(0);
-              // players.elementAt(i).play();
+              players.elementAt(i).play();
               if (urls.length == i) {
-                // setState(() {});
+                setState(() {});
               }
             }
           }).catchError((o) => print('!! $o ${urls[i].url}'));
