@@ -78,18 +78,6 @@ extension SentryExtensions on SentryClient {
   }
 }
 
-// void main() async {
-//   runZonedGuarded(
-//     () => runApp(MyApp()),
-//     (error, stackTrace) {
-//       await _sentry.captureException(
-//         exception: error,
-//         stackTrace: stackTrace,
-//       );
-//     },
-//   );
-// }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

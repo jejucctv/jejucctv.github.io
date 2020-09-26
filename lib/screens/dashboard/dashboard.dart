@@ -47,8 +47,6 @@ class _DashboardState extends State<Dashboard> {
 
   List<VideoPlayerController> players = [];
 
-  // var _pubspec;
-
   String _version;
 
   @override

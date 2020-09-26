@@ -49,6 +49,10 @@ void initialize() {
 
 ## Changelog
 
+### 0.0.6
+
+- version.json 파일에서 버전 load
+
 ### 0.0.5
 
 - sentry 에러 리포팅 추가
