@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:yaml/yaml.dart';
+import 'dart:io';
+import 'dart:convert';
 
 class CctvUrl {
   String name;
@@ -55,12 +56,7 @@ class _DashboardState extends State<Dashboard> {
 
     initializeVideoPlayer();
 
-    // read yaml file.
-    // loadAsset('./version.json').then((d) {
-    // _pubspec = loadYaml(d);
-    _version = 'build 1.0.0+1'; //${_pubspec['version']}';
-    // setState(() {});
-    // });
+    readVersion();
   }
 
   @override
@@ -257,7 +253,33 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
-  // Future<String> loadAsset(String path) async {
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/.version.json');
+  }
+
+  Future<void> readVersion() async {
+    try {
+      final file = await _localFile;
+
+      // 파일 읽기.
+      String contents = await file.readAsString();
+      Map<String, dynamic> versions = jsonDecode(contents);
+      if (versions.containsKey("version")) {
+        _version = versions["version"];
+        setState(() {});
+      }
+    } catch (e) {
+    }
+  }
+
+// Future<String> loadAsset(String path) async {
+  //
   //   return await rootBundle.loadString(path);
   // }
 }
