@@ -50559,7 +50559,7 @@ while(true)switch(s){case 0:o=P
 n=H
 s=3
 return P.W(p.goT(),$async$goS)
-case 3:q=o.aek(n.b(b)+"/.version.json")
+case 3:q=o.aek(n.b(b)+"/version.json")
 s=1
 break
 case 1:return P.N(q,r)}})
