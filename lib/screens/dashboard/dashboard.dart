@@ -146,8 +146,7 @@ class _DashboardState extends State<Dashboard> {
                             fontWeight: FontWeight.bold,
                           )),
                       SizedBox(height: 5),
-                      SelectableLinkify(
-                        text: _version,
+                      Text(_version,
                         style: TextStyle(
                           fontSize: 9,
                         ),
@@ -259,8 +258,8 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/version.json');
+    // final path = await _localPath;
+    return File('./version.json');
   }
 
   Future<void> readVersion() async {
@@ -271,7 +270,9 @@ class _DashboardState extends State<Dashboard> {
       String contents = await file.readAsString();
       Map<String, dynamic> versions = jsonDecode(contents);
       if (versions.containsKey("version")) {
-        _version = versions["version"];
+        var version = versions["version"];
+        var buildNumber = versions["build_number"];
+        _version = '$version+$buildNumber';
         setState(() {});
       }
     } catch (e) {
