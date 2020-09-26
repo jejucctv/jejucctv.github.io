@@ -1,13 +1,15 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:file_picker_web/file_picker_web.dart' as webPicker;
 
 import 'dart:async' show Future;
-import 'dart:io';
 import 'dart:convert';
+// import 'dart:html' as webFile;
 
 class CctvUrl {
   String name;
@@ -48,7 +50,7 @@ class _DashboardState extends State<Dashboard> {
 
   List<VideoPlayerController> players = [];
 
-  String _version;
+  String _version = '0.0.6+3';
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _DashboardState extends State<Dashboard> {
 
     initializeVideoPlayer();
 
-    readVersion();
+    // readVersion();
   }
 
   @override
@@ -146,7 +148,8 @@ class _DashboardState extends State<Dashboard> {
                             fontWeight: FontWeight.bold,
                           )),
                       SizedBox(height: 5),
-                      Text(_version,
+                      Text(
+                        _version,
                         style: TextStyle(
                           fontSize: 9,
                         ),
@@ -195,9 +198,9 @@ class _DashboardState extends State<Dashboard> {
           ..initialize().then((_) {
             if (getSupported()) {
               players.elementAt(i).setVolume(0);
-              players.elementAt(i).play();
+              // players.elementAt(i).play();
               if (urls.length == i) {
-                setState(() {});
+                // setState(() {});
               }
             }
           }).catchError((o) => print('!! $o ${urls[i].url}'));
@@ -252,35 +255,33 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
+  // Future<void> readVersion() async {
+  //   try {
+  //     var contents = await downloadVersion();
+  //     Map<String, dynamic> versions = jsonDecode(contents);
+  //     if (versions.containsKey("version")) {
+  //       var version = versions["version"];
+  //       var buildNumber = versions["build_number"];
+  //       _version = '$version+$buildNumber';
+  //       setState(() {});
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
-  Future<File> get _localFile async {
-    // final path = await _localPath;
-    return File('./version.json');
-  }
-
-  Future<void> readVersion() async {
-    try {
-      final file = await _localFile;
-
-      // 파일 읽기.
-      String contents = await file.readAsString();
-      Map<String, dynamic> versions = jsonDecode(contents);
-      if (versions.containsKey("version")) {
-        var version = versions["version"];
-        var buildNumber = versions["build_number"];
-        _version = '$version+$buildNumber';
-        setState(() {});
-      }
-    } catch (e) {
-    }
-  }
-
-// Future<String> loadAsset(String path) async {
+  // Future<String> downloadVersion() async {
+  //   FilePickerResult result = await FilePicker.platform.pickFiles(
+  //     type: FileType.custom,
+  //     allowedExtensions: ['json'],
+  //   );
+  //   for (PlatformFile file in result.files) {
+  //     print(file.name);
+  //     if (file.name == 'version.json') {
+  //       return jsonDecode(file.path);
+  //     }
+  //   }
   //
-  //   return await rootBundle.loadString(path);
+  //   return "";
   // }
 }
