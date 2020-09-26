@@ -260,7 +260,7 @@ class _DashboardState extends State<Dashboard> {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/.version.json');
+    return File('$path/version.json');
   }
 
   Future<void> readVersion() async {
