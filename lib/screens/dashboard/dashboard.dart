@@ -1,4 +1,4 @@
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -7,9 +7,10 @@ import 'package:url_launcher/url_launcher.dart';
 // import 'package:http/http.dart' as http;
 // import 'package:file_picker_web/file_picker_web.dart' as webPicker;
 
-import 'dart:async' show Future;
-import 'dart:convert';
+// import 'dart:async' show Future;
+// import 'dart:convert';
 // import 'dart:html' as webFile;
+import 'package:provider/provider.dart';
 
 class CctvUrl {
   String name;
@@ -18,12 +19,15 @@ class CctvUrl {
   CctvUrl(this.name, this.url);
 }
 
-class Dashboard extends StatefulWidget {
-  @override
-  _DashboardState createState() => _DashboardState();
-}
 
-class _DashboardState extends State<Dashboard> {
+
+// class Dashboard extends StatefulWidget {
+//   @override
+//   _DashboardState createState() => _DashboardState();
+// }
+
+class Dashboard extends StatelessWidget {
+
   final urls = [
     CctvUrl("제주공항", "http://123.140.197.51/stream/33/play.m3u8"),
     CctvUrl("용두암 해안", "http://59.8.86.15:1935/live/51.stream/playlist.m3u8"),
@@ -50,16 +54,7 @@ class _DashboardState extends State<Dashboard> {
 
   List<VideoPlayerController> players = [];
 
-  String _version = '0.0.6+3';
-
-  @override
-  void initState() {
-    super.initState();
-
-    initializeVideoPlayer();
-
-    // readVersion();
-  }
+  final _version = '0.0.6+4';
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +80,9 @@ class _DashboardState extends State<Dashboard> {
             actions: <Widget>[
               Container(
                   child: IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () => _showDialog('버전: $_version'),
-              )),
+                    icon: Icon(Icons.more_vert),
+                    onPressed: () => showAlertDialog(context, '버전: $_version'),
+                  )),
               SizedBox(width: 10),
             ],
             backgroundColor: Colors.lightBlue,
@@ -98,7 +93,7 @@ class _DashboardState extends State<Dashboard> {
               childAspectRatio: 1.7,
             ),
             delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
+                  (BuildContext context, int index) {
                 return Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -133,7 +128,7 @@ class _DashboardState extends State<Dashboard> {
                       SizedBox(height: 10),
                       Linkify(
                         text:
-                            "Made by https://sh0seo.github.io | Mail: ssh0702@gmail.com",
+                        "Made by https://sh0seo.github.io | Mail: ssh0702@gmail.com",
                         style: TextStyle(
                           fontSize: 12,
                         ),
@@ -162,17 +157,8 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  @override
-  void dispose() {
-    for (var controller in players) {
-      controller.dispose();
-    }
-
-    super.dispose();
-  }
-
-  void _showDialog(String message) async {
-    return showDialog<void>(
+  void showAlertDialog(BuildContext context, String message) async {
+    return await showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
@@ -183,7 +169,7 @@ class _DashboardState extends State<Dashboard> {
               FlatButton(
                 child: Text('확인'),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -192,26 +178,43 @@ class _DashboardState extends State<Dashboard> {
   }
 
   void initializeVideoPlayer() {
-    for (int i = 0; i < urls.length; i++) {
+    // for (int i = 0; i < urls.length; i++) {
+    //   try {
+    //     VideoPlayerController video = VideoPlayerController.network(urls[i].url)
+    //       ..initialize().then((_) {
+    //         if (getSupported()) {
+    //           players.elementAt(i).setVolume(0);
+    //           players.elementAt(i).play();
+    //           // if (urls.length == i) {
+    //           //   setState(() {});
+    //           // }
+    //         }
+    //       }).catchError((o) => print('!! $o ${urls[i].url}'));
+    //     players.add(video);
+    //   } catch (e) {
+    //     print(e);
+    //   }
+    // }
+  }
+
+  VideoPlayer getVideoPlayer(int index) {
+    //     for (int i = 0; i < urls.length; i++) {
       try {
-        VideoPlayerController video = VideoPlayerController.network(urls[i].url)
+        VideoPlayerController video = VideoPlayerController.network(urls[index].url)
           ..initialize().then((_) {
-            if (getSupported()) {
-              players.elementAt(i).setVolume(0);
-              players.elementAt(i).play();
-              if (urls.length == i) {
-                setState(() {});
-              }
-            }
-          }).catchError((o) => print('!! $o ${urls[i].url}'));
+//             if (getSupported()) {
+              players.elementAt(index).setVolume(0);
+              players.elementAt(index).play();
+//               // if (urls.length == i) {
+//               //   setState(() {});
+//               // }
+//             }
+          }).catchError((o) => print('!! $o ${urls[index].url}'));
         players.add(video);
       } catch (e) {
         print(e);
       }
-    }
-  }
-
-  VideoPlayer getVideoPlayer(int index) {
+//     }
     return VideoPlayer(players.elementAt(index));
   }
 
@@ -254,6 +257,212 @@ class _DashboardState extends State<Dashboard> {
         return true;
     }
   }
+}
+
+// class _DashboardState extends State<Dashboard> {
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     initializeVideoPlayer();
+//
+//     // readVersion();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: CustomScrollView(
+//         slivers: <Widget>[
+//           SliverAppBar(
+//             title: Row(
+//                 crossAxisAlignment: CrossAxisAlignment.center,
+//                 children: <Widget>[
+//                   Container(
+//                     margin: EdgeInsets.only(left: 32),
+//                     child: Text(
+//                       "제주도 CCTV",
+//                       style: TextStyle(
+//                         fontSize: 24,
+//                         color: Colors.white,
+//                         fontWeight: FontWeight.bold,
+//                       ),
+//                     ),
+//                   ),
+//                 ]),
+//             actions: <Widget>[
+//               Container(
+//                   child: IconButton(
+//                 icon: Icon(Icons.more_vert),
+//                 onPressed: () => showAlertDialog('버전: $_version'),
+//               )),
+//               SizedBox(width: 10),
+//             ],
+//             backgroundColor: Colors.lightBlue,
+//           ),
+//           SliverGrid(
+//             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//               crossAxisCount: getCountInRow(),
+//               childAspectRatio: 1.7,
+//             ),
+//             delegate: SliverChildBuilderDelegate(
+//               (BuildContext context, int index) {
+//                 return Card(
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(5.0),
+//                   ),
+//                   elevation: 5,
+//                   margin: EdgeInsets.only(left: 3, right: 3, top: 3, bottom: 3),
+//                   child: Stack(
+//                     children: <Widget>[
+//                       Container(
+//                           padding: EdgeInsets.all(5),
+//                           child: getVideoPlayer(index)),
+//                       Container(
+//                         child: getName(index),
+//                         margin: EdgeInsets.only(top: 13, right: 10),
+//                         alignment: Alignment.topRight,
+//                       ),
+//                     ],
+//                   ),
+//                 );
+//               },
+//               childCount: 16,
+//             ),
+//           ),
+//           SliverFillRemaining(
+//               hasScrollBody: false,
+//               child: Container(
+//                   color: Colors.grey[200],
+//                   padding: EdgeInsets.all(20),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: [
+//                       SizedBox(height: 10),
+//                       Linkify(
+//                         text:
+//                             "Made by https://sh0seo.github.io | Mail: ssh0702@gmail.com",
+//                         style: TextStyle(
+//                           fontSize: 12,
+//                         ),
+//                         onOpen: (link) async {
+//                           await launch(link.url);
+//                         },
+//                       ),
+//                       SizedBox(height: 5),
+//                       Text('Copyright© Jejucctv.site All Rights Reserved',
+//                           style: TextStyle(
+//                             fontSize: 13,
+//                             fontWeight: FontWeight.bold,
+//                           )),
+//                       SizedBox(height: 5),
+//                       Text(
+//                         _version,
+//                         style: TextStyle(
+//                           fontSize: 9,
+//                         ),
+//                       ),
+//                       SizedBox(height: 20),
+//                     ],
+//                   )))
+//         ],
+//       ),
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     for (var controller in players) {
+//       controller.dispose();
+//     }
+//
+//     super.dispose();
+//   }
+//
+//   void showAlertDialog(String message) async {
+//     return await showDialog<void>(
+//         context: context,
+//         barrierDismissible: false,
+//         builder: (BuildContext context) {
+//           return AlertDialog(
+//             title: Text('제주도 CCTV'),
+//             content: Text(message),
+//             actions: <Widget>[
+//               FlatButton(
+//                 child: Text('확인'),
+//                 onPressed: () {
+//                   Navigator.of(context).pop();
+//                 },
+//               )
+//             ],
+//           );
+//         });
+//   }
+//
+//   void initializeVideoPlayer() {
+//     for (int i = 0; i < urls.length; i++) {
+//       try {
+//         VideoPlayerController video = VideoPlayerController.network(urls[i].url)
+//           ..initialize().then((_) {
+//             if (getSupported()) {
+//               players.elementAt(i).setVolume(0);
+//               players.elementAt(i).play();
+//               // if (urls.length == i) {
+//               //   setState(() {});
+//               // }
+//             }
+//           }).catchError((o) => print('!! $o ${urls[i].url}'));
+//         players.add(video);
+//       } catch (e) {
+//         print(e);
+//       }
+//     }
+//   }
+//
+//   VideoPlayer getVideoPlayer(int index) {
+//     return VideoPlayer(players.elementAt(index));
+//   }
+//
+//   Text getName(int index) {
+//     if (index > 15) {
+//       throw ('$index is over');
+//     }
+//     return Text(
+//       urls[index].name,
+//       style: TextStyle(
+//         fontWeight: FontWeight.bold,
+//         fontSize: 15,
+//         color: Colors.white,
+//       ),
+//       textAlign: TextAlign.right,
+//     );
+//   }
+//
+//   int getCountInRow() {
+//     var targetPlatform = defaultTargetPlatform;
+//     if (targetPlatform == TargetPlatform.android) {
+//       return 1;
+//     } else if (targetPlatform == TargetPlatform.iOS) {
+//       return 1;
+//     }
+//     return 4;
+//   }
+//
+//   bool getSupported() {
+//     switch (defaultTargetPlatform) {
+//       case TargetPlatform.windows:
+//         return true;
+//       case TargetPlatform.macOS:
+//         return true;
+//       case TargetPlatform.linux:
+//         return true;
+//       case TargetPlatform.android:
+//         return true;
+//       default:
+//         return true;
+//     }
+//   }
 
   // Future<void> readVersion() async {
   //   try {
@@ -284,4 +493,4 @@ class _DashboardState extends State<Dashboard> {
   //
   //   return "";
   // }
-}
+// }
