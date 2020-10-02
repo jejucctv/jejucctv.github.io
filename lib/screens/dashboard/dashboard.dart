@@ -1,6 +1,7 @@
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,12 +20,26 @@ class CctvUrl {
   CctvUrl(this.name, this.url);
 }
 
-
-
 // class Dashboard extends StatefulWidget {
 //   @override
 //   _DashboardState createState() => _DashboardState();
 // }
+class Players extends ChangeNotifier {
+
+  List<VideoPlayerController> _players = [];
+
+  void addPlayer(VideoPlayerController video, int i) {
+    video.initialize().then((_) {
+      _players.elementAt(i).setVolume(0);
+      _players.elementAt(i).play();
+      // notifyListeners();
+    }).catchError((o) {
+      print('error($i): $o');
+      _players.elementAt(i).pause();
+    }).timeout(Duration(microseconds: 3000));
+    _players.add(video);
+  }
+}
 
 class Dashboard extends StatelessWidget {
 
@@ -52,108 +67,116 @@ class Dashboard extends StatelessWidget {
         "http://119.65.216.155:1935/live/cctv05.stream_360p/playlist.m3u8"),
   ];
 
-  List<VideoPlayerController> players = [];
-
   final _version = '0.0.6+4';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            title: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 32),
-                    child: Text(
-                      "제주도 CCTV",
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+      body: ChangeNotifierProvider<Players> (
+        create: (context) => Players(),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              title: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(left: 32),
+                      child: Text(
+                        "제주도 CCTV",
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                ]),
-            actions: <Widget>[
-              Container(
-                  child: IconButton(
-                    icon: Icon(Icons.more_vert),
-                    onPressed: () => showAlertDialog(context, '버전: $_version'),
-                  )),
-              SizedBox(width: 10),
-            ],
-            backgroundColor: Colors.lightBlue,
-          ),
-          SliverGrid(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: getCountInRow(),
-              childAspectRatio: 1.7,
+                  ]),
+              actions: <Widget>[
+                Container(
+                    child: IconButton(
+                      icon: Icon(Icons.more_vert),
+                      onPressed: () => showAlertDialog(context, '버전: $_version'),
+                    )),
+                SizedBox(width: 10),
+              ],
+              backgroundColor: Colors.lightBlue,
             ),
-            delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  elevation: 5,
-                  margin: EdgeInsets.only(left: 3, right: 3, top: 3, bottom: 3),
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                          padding: EdgeInsets.all(5),
-                          child: getVideoPlayer(index)),
-                      Container(
-                        child: getName(index),
-                        margin: EdgeInsets.only(top: 13, right: 10),
-                        alignment: Alignment.topRight,
-                      ),
-                    ],
-                  ),
-                );
-              },
-              childCount: 16,
-            ),
-          ),
-          SliverFillRemaining(
-              hasScrollBody: false,
-              child: Container(
-                  color: Colors.grey[200],
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 10),
-                      Linkify(
-                        text:
-                        "Made by https://sh0seo.github.io | Mail: ssh0702@gmail.com",
-                        style: TextStyle(
-                          fontSize: 12,
+            SliverGrid(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: getCountInRow(),
+                childAspectRatio: 1.7,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    elevation: 5,
+                    margin: EdgeInsets.only(left: 3, right: 3, top: 3, bottom: 3),
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          child: Text('로딩 중'),
+                          // margin: EdgeInsets.only(top: 13, right: 10),
+                          alignment: Alignment.center,
                         ),
-                        onOpen: (link) async {
-                          await launch(link.url);
-                        },
-                      ),
-                      SizedBox(height: 5),
-                      Text('Copyright© Jejucctv.site All Rights Reserved',
+                        Container(
+                            padding: EdgeInsets.all(5),
+                            child: getVideoPlayer(context, index)
+                        ),
+                        Container(
+                          child: getName(index),
+                          margin: EdgeInsets.only(top: 13, right: 10),
+                          alignment: Alignment.topRight,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                childCount: 16,
+              ),
+            ),
+            SliverFillRemaining(
+                hasScrollBody: false,
+                child: Container(
+                    color: Colors.grey[200],
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10),
+                        Linkify(
+                          text:
+                          "Made by https://sh0seo.github.io | Mail: ssh0702@gmail.com",
                           style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      SizedBox(height: 5),
-                      Text(
-                        _version,
-                        style: TextStyle(
-                          fontSize: 9,
+                            fontSize: 12,
+                          ),
+                          onOpen: (link) async {
+                            await launch(link.url);
+                          },
                         ),
-                      ),
-                      SizedBox(height: 20),
-                    ],
-                  )))
-        ],
+                        SizedBox(height: 5),
+                        Text('Copyright© Jejucctv.site All Rights Reserved',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        SizedBox(height: 5),
+                        Text(
+                          _version,
+                          style: TextStyle(
+                            fontSize: 9,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    )))
+          ],
+        ),
       ),
+
     );
   }
 
@@ -197,25 +220,15 @@ class Dashboard extends StatelessWidget {
     // }
   }
 
-  VideoPlayer getVideoPlayer(int index) {
-    //     for (int i = 0; i < urls.length; i++) {
+  VideoPlayer getVideoPlayer(BuildContext context, int index) {
       try {
-        VideoPlayerController video = VideoPlayerController.network(urls[index].url)
-          ..initialize().then((_) {
-//             if (getSupported()) {
-              players.elementAt(index).setVolume(0);
-              players.elementAt(index).play();
-//               // if (urls.length == i) {
-//               //   setState(() {});
-//               // }
-//             }
-          }).catchError((o) => print('!! $o ${urls[index].url}'));
-        players.add(video);
+        VideoPlayerController video = VideoPlayerController.network(urls[index].url);
+        context.watch<Players>().addPlayer(video, index);
+        return VideoPlayer(video);
       } catch (e) {
         print(e);
       }
-//     }
-    return VideoPlayer(players.elementAt(index));
+    return null;
   }
 
   Text getName(int index) {
