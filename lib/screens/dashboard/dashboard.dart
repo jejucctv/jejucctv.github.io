@@ -32,12 +32,14 @@ class Players extends ChangeNotifier {
     video.initialize().then((_) {
       _players.elementAt(i).setVolume(0);
       _players.elementAt(i).play();
-      // notifyListeners();
     }).catchError((o) {
       print('error($i): $o');
       _players.elementAt(i).pause();
-    }).timeout(Duration(microseconds: 3000));
+    });
     _players.add(video);
+    if (i == _players.length) {
+      notifyListeners();
+    }
   }
 }
 
@@ -67,7 +69,7 @@ class Dashboard extends StatelessWidget {
         "http://119.65.216.155:1935/live/cctv05.stream_360p/playlist.m3u8"),
   ];
 
-  final _version = '0.0.6+4';
+  final _version = '0.0.6+5';
 
   @override
   Widget build(BuildContext context) {
