@@ -47500,7 +47500,7 @@ Z.x_.prototype={
 b8:function(){this.bu()
 this.To()},
 J:function(a,b){var s=null,r=t.Z,q=T.a4l(H.c([M.eI(s,L.jh("\uc81c\uc8fc\ub3c4 CCTV",A.i6(s,s,C.j,s,s,s,s,s,s,s,s,24,s,C.bA,s,s,!0,s,s,s,s,s,s),s),s,s,s,new V.aC(32,0,0,0),s,s)],r),C.iG,C.jT),p=H.c([M.eI(s,B.Mp(s,L.a3e(C.vK),new Z.J4(this),s),s,s,s,s,s,s),T.i0(s,s,10)],r),o=this.F3(),n=C.a6.h(0,200)
-r=H.c([new E.rH(q,p,C.xa,s),new G.AT(new B.SC(o,1.7),new G.Sy(new Z.J5(this),16),s),new A.AR(M.eI(s,T.a2C(H.c([T.i0(s,10,s),new F.yo("Made by https://sh0seo.github.io | Mail: ssh0702@gmail.com",new Z.J6(),A.i6(s,s,s,s,s,s,s,s,s,s,s,12,s,s,s,s,!0,s,s,s,s,s,s),s),T.i0(s,5,s),L.jh("Copyright\xa9 Jejucctv.site All Rights Reserved",A.i6(s,s,s,s,s,s,s,s,s,s,s,13,s,C.bA,s,s,!0,s,s,s,s,s,s),s),T.i0(s,5,s),L.jh("0.0.6+5",A.i6(s,s,s,s,s,s,s,s,s,s,s,9,s,s,s,s,!0,s,s,s,s,s,s),s),T.i0(s,20,s)],r),C.iG,C.jR,C.jT),n,s,s,s,new V.aC(20,20,20,20),s),!1,s)],r)
+r=H.c([new E.rH(q,p,C.xa,s),new G.AT(new B.SC(o,1.7),new G.Sy(new Z.J5(this),16),s),new A.AR(M.eI(s,T.a2C(H.c([T.i0(s,10,s),new F.yo("Made by https://sh0seo.github.io | Mail: ssh0702@gmail.com",new Z.J6(),A.i6(s,s,s,s,s,s,s,s,s,s,s,12,s,s,s,s,!0,s,s,s,s,s,s),s),T.i0(s,5,s),L.jh("Copyright\xa9 Jejucctv.site All Rights Reserved",A.i6(s,s,s,s,s,s,s,s,s,s,s,13,s,C.bA,s,s,!0,s,s,s,s,s,s),s),T.i0(s,5,s),L.jh("0.0.6+6",A.i6(s,s,s,s,s,s,s,s,s,s,s,9,s,s,s,s,!0,s,s,s,s,s,s),s),T.i0(s,20,s)],r),C.iG,C.jR,C.jT),n,s,s,s,new V.aC(20,20,20,20),s),!1,s)],r)
 return new M.rm(new B.wY(r,C.n,!1,s,!0,C.rq,!1,s,0,s,s,C.bz,C.xS,s,C.be,s),s)},
 t:function(a){var s,r,q
 for(s=this.f,r=s.length,q=0;q<s.length;s.length===r||(0,H.J)(s),++q)s[q].t(0)
@@ -47536,7 +47536,7 @@ case C.N:return!0
 case C.H:return!0
 default:return!0}}}
 Z.J4.prototype={
-$0:function(){return this.a.mZ("\ubc84\uc804: 0.0.6+5")},
+$0:function(){return this.a.mZ("\ubc84\uc804: 0.0.6+6")},
 $C:"$0",
 $R:0,
 $S:1}
@@ -49766,7 +49766,7 @@ A.oi.prototype={
 dC:function(a){var s,r,q,p=this,o=document.createElement("video"),n=p.b
 o.src=n
 o.autoplay=!0
-o.controls=!0
+o.controls=!1
 r=o.style
 r.border="none"
 p.d=o
