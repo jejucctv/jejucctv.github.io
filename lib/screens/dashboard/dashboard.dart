@@ -298,7 +298,7 @@ class DashboardState extends State<Dashboard> {
         "http://119.65.216.155:1935/live/cctv05.stream_360p/playlist.m3u8"),
   ];
 
-  final _version = '0.0.6+5';
+  final _version = '0.0.6+6';
 
   List<VideoPlayerController> _players = [];
 
