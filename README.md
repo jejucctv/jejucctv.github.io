@@ -49,6 +49,10 @@ void initialize() {
 
 ## Changelog
 
+### 0.0.7
+
+- PC (hide controller) / Mobile (show controller)
+
 ### 0.0.6
 
 - version.json 파일에서 버전 load

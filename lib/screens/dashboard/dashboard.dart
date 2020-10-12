@@ -298,7 +298,7 @@ class DashboardState extends State<Dashboard> {
         "http://119.65.216.155:1935/live/cctv05.stream_360p/playlist.m3u8"),
   ];
 
-  final _version = '0.0.6+6';
+  final _version = '0.0.6+7';
 
   List<VideoPlayerController> _players = [];
 
@@ -452,6 +452,7 @@ class DashboardState extends State<Dashboard> {
         VideoPlayerController video = VideoPlayerController.network(urls[i].url)
           ..initialize().then((_) {
             if (getSupported()) {
+              _players.elementAt(i).setLooping(true);
               _players.elementAt(i).setVolume(0);
               _players.elementAt(i).play();
               // if (urls.length == i) {
@@ -493,6 +494,17 @@ class DashboardState extends State<Dashboard> {
       return 1;
     }
     return 4;
+  }
+
+  bool isMobile() {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return true;
+      case TargetPlatform.iOS:
+        return true;
+      default:
+        return false;
+    }
   }
 
   bool getSupported() {

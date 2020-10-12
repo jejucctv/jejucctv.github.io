@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:ui' as ui;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -157,11 +158,22 @@ class _VideoPlayer {
   VideoElement videoElement;
   bool isInitialized = false;
 
+  bool isMobile() {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return true;
+      case TargetPlatform.iOS:
+        return true;
+      default:
+        return false;
+    }
+  }
+
   void initialize() {
     videoElement = VideoElement()
       ..src = uri
       ..autoplay = true
-      ..controls = false
+      ..controls = isMobile() ? true : false
       ..style.border = 'none';
 
     // Allows Safari iOS to play the video inline
