@@ -275,33 +275,3 @@ class DashboardState extends State<Dashboard> {
     }
   }
 }
-// Future<void> readVersion() async {
-//   try {
-//     var contents = await downloadVersion();
-//     Map<String, dynamic> versions = jsonDecode(contents);
-//     if (versions.containsKey("version")) {
-//       var version = versions["version"];
-//       var buildNumber = versions["build_number"];
-//       _version = '$version+$buildNumber';
-//       setState(() {});
-//     }
-//   } catch (e) {
-//     print(e);
-//   }
-// }
-
-// Future<String> downloadVersion() async {
-//   FilePickerResult result = await FilePicker.platform.pickFiles(
-//     type: FileType.custom,
-//     allowedExtensions: ['json'],
-//   );
-//   for (PlatformFile file in result.files) {
-//     print(file.name);
-//     if (file.name == 'version.json') {
-//       return jsonDecode(file.path);
-//     }
-//   }
-//
-//   return "";
-// }
-// }
