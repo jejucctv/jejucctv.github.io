@@ -14,10 +14,10 @@ const RESOURCES = {
 "sitemap.xml": "622c32189d2a92ce5d7f868c6381c34c",
 "google74c77c53dd7cfd3f.html": "f9f7ca0be0f1c4281326a5aff53c01c2",
 "manifest.json": "2a5bd03b7285bf408a567df1ddf63f86",
-"main.dart.js": "41faacde46682ca6d45348731413afee",
-"version.json": "0dfff2bbcf7081f76167f3d7e4ff2070",
-"index.html": "e9dd81043c5c23b70ae97c89387fa63f",
-"/": "e9dd81043c5c23b70ae97c89387fa63f",
+"main.dart.js": "c3ee5fe4eb1ba57a86cb81c15a4d36a5",
+"version.json": "ce51688b848dbb6742a2808b66ee7055",
+"index.html": "0aed86c4b9e28154f152949767935d28",
+"/": "0aed86c4b9e28154f152949767935d28",
 "icons/Icon-192.png": "17b5e0f344f80677e0c1679c2eef38b4",
 "icons/Icon-512.png": "f109c758d1035e2f4d5c5773dd936f15"
 };
