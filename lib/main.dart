@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:isolate';
-import 'dart:html' as html;
+// import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
     // '/': (BuildContext context) => Login(),
     // '/': (BuildContext context) => HomeScreen(),
     // };
-    html.window.history.pushState(null, "Home", "/");
+    // html.window.history.pushState(null, "Home", "/");
     return MaterialApp(
       // initialRoute: '/',
       // routes: routes,

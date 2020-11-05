@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 // import 'package:http/http.dart' as http;
 // import 'package:file_picker_web/file_picker_web.dart' as webPicker;
 
-// import 'dart:async' show Future;
+import 'dart:async' show Future;
 // import 'dart:convert';
 import 'dart:html' as html;
 // import 'package:provider/provider.dart';
@@ -50,7 +50,7 @@ class DashboardState extends State<Dashboard> {
         "http://119.65.216.155:1935/live/cctv05.stream_360p/playlist.m3u8"),
   ];
 
-  final _version = '0.0.6+8';
+  final _version = '0.0.6+9';
 
   List<VideoPlayerController> _players = [];
 
@@ -61,7 +61,11 @@ class DashboardState extends State<Dashboard> {
     initializeVideoPlayer();
 
     // readVersion();
-    html.window.history.pushState(null, "Home", "/");
+    // html.window.history.pushState(null, "Home", "/");
+
+    Future.delayed(
+        Duration(milliseconds: 100), () => html.window.history.replaceState(null, null, "/")
+    );
   }
 
   @override
