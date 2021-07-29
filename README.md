@@ -49,6 +49,10 @@ void initialize() {
 
 ## Changelog
 
+### 0.0.8
+
+- Flutter WEB을 ReactJS 기반으로 변경
+
 ### 0.0.7
 
 - PC (hide controller) / Mobile (show controller)
