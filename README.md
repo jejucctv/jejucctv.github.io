@@ -2,7 +2,7 @@
 
 제주도 멀티뷰 CCTV WebApp.
 
-![목표화면](assets/img/prototype-2.png)
+![목표화면](public/prototype-2.png)
 
 ## TODO
 
@@ -48,7 +48,7 @@ void initialize() {
 
 ## Changelog
 
-### 0.1.1
+### 0.0.8
 
 - ReactJS를 이용하여 재개발
 
